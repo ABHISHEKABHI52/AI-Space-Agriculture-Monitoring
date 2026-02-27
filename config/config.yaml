@@ -1,0 +1,68 @@
+# AI-Based Plant Health Monitoring System Configuration
+
+# Image Processing Settings
+image_processing:
+  target_size: [640, 480]
+  hsv_green_lower: [35, 40, 40]
+  hsv_green_upper: [85, 255, 255]
+  blur_kernel_size: 5
+  morphology_kernel_size: 5
+  min_contour_area: 1000
+
+# Feature Extraction
+features:
+  min_leaf_area: 5000
+  max_leaf_area: 100000
+  green_index_threshold: 60
+  growth_rate_window: 3  # days
+
+# Model Configuration
+model:
+  type: "RandomForest"
+  n_estimators: 100
+  max_depth: 10
+  random_state: 42
+  test_size: 0.2
+  model_path: "models/trained/plant_model.pkl"
+
+# Classification Thresholds
+classification:
+  healthy_area_min: 20000
+  healthy_green_min: 100
+  water_stress_area_max: 12000
+  water_stress_green_max: 85
+  light_stress_green_max: 75
+
+# Data Logging
+data:
+  raw_image_path: "data/raw"
+  processed_path: "data/processed"
+  features_path: "data/features"
+  records_file: "data/plant_records.csv"
+  
+# Dashboard Settings
+dashboard:
+  title: "Autonomous Plant Monitoring System – Space Agriculture"
+  page_icon: "🌱"
+  layout: "wide"
+  theme: "light"
+  
+# Alert Settings
+alerts:
+  water_stress_message: "⚠️ Water Stress Detected! Recommendation: Increase watering frequency."
+  light_stress_message: "⚠️ Light Stress Detected! Recommendation: Increase light exposure."
+  healthy_message: "✅ Plant is Healthy! Continue current care routine."
+  
+# Experimental Setup
+experiment:
+  plant_types: ["chickpea", "mustard", "lettuce"]
+  groups:
+    - name: "Control"
+      condition: "Normal water + light"
+    - name: "Low_Water"
+      condition: "50% water"
+    - name: "Low_Light"
+      condition: "Reduced light"
+  duration_days: 15
+  capture_interval_hours: 12
+  plants_per_group: 10
